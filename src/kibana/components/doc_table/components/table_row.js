@@ -23,7 +23,7 @@ define(function (require) {
    * <tr ng-repeat="row in rows" kbn-table-row="row"></tr>
    * ```
    */
-  module.directive('kbnTableRow', function ($compile, config, highlightFilter, highlightTags, shortDotsFilter, courier) {
+  module.directive('kbnTableRow', function ($compile, config, highlightFilter, highlightTags, shortDotsFilter, courier, linkify) {
     var openRowHtml = require('text!components/doc_table/components/table_row/open.html');
     var detailsHtml = require('text!components/doc_table/components/table_row/details.html');
     var cellTemplate = _.template(require('text!components/doc_table/components/table_row/cell.html'));
@@ -167,6 +167,8 @@ define(function (require) {
         function _displayField(row, field, breakWords) {
           var text = _getValForField(row, field);
           text = highlightFilter(text, row.highlight && row.highlight[field]);
+
+          if (text.substr(0,4) == "http") { text = linkify.normal(text); }
 
           if (breakWords) {
             text = addWordBreaks(text, MIN_LINE_LENGTH);
