@@ -11,6 +11,7 @@ define(function (require) {
   require('elasticsearch');
   require('angular-route');
   require('angular-bindonce');
+  require('angular-linkify');
 
   var configFile = JSON.parse(require('text!config'));
 
@@ -19,7 +20,8 @@ define(function (require) {
     'elasticsearch',
     'pasvaz.bindonce',
     'ngRoute',
-    'ngClipboard'
+    'ngClipboard',
+    'linkify'
   ]);
 
 

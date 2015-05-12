@@ -22,7 +22,7 @@ define(function (require) {
    * <tr ng-repeat="row in rows" kbn-table-row="row"></tr>
    * ```
    */
-  module.directive('kbnTableRow', function ($compile) {
+  module.directive('kbnTableRow', function ($compile, linkify) {
     var noWhiteSpace = require('utils/no_white_space');
     var openRowHtml = require('text!components/doc_table/components/table_row/open.html');
     var detailsHtml = require('text!components/doc_table/components/table_row/details.html');
@@ -153,6 +153,8 @@ define(function (require) {
         function _displayField(row, fieldName, breakWords) {
           var indexPattern = $scope.indexPattern;
           var text = indexPattern.formatField(row, fieldName);
+
+          if (text.substr(0,4) == "http") { text = linkify.normal(text); }
 
           if (breakWords) {
             text = addWordBreaks(text, MIN_LINE_LENGTH);
