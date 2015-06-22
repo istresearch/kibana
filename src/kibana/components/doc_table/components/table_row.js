@@ -154,7 +154,7 @@ define(function (require) {
           var indexPattern = $scope.indexPattern;
           var text = indexPattern.formatField(row, fieldName);
 
-          if (text.substr(0,4) == "http") { text = linkify.normal(text); }
+          if (text.substr(0, 4) === 'http') { text = linkify.normal(text); }
 
           if (breakWords) {
             text = addWordBreaks(text, MIN_LINE_LENGTH);
