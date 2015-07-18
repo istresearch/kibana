@@ -11,6 +11,7 @@ target
 .idea
 *.iml
 *.log
+*.deb
 esvm
 .htpasswd
 src/server/bin/plugins
