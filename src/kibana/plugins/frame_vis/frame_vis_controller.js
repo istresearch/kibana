@@ -1,5 +1,5 @@
 define(function (require) {
-  var $ = $;
+  var $ = window.jQuery;
   var module = require('modules').get('kibana/frame_vis', ['kibana']);
   module.controller('KbnFrameVisController', function ($scope, $sce) {
     $scope.$watch('vis.params.url', function (url) {
