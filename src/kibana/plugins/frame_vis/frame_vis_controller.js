@@ -27,5 +27,15 @@ define(function (require) {
     $scope.$watch('esResponse', function (resp) {
       $scope.updateFrame();
     });
+    window.onmessage = function (e) {
+      try {
+        var data = JSON.parse(e.data);
+        if (data && data.query) {
+          $('form[name="queryInput"] input[type="text"]').val(data.query);
+          $('button[type="submit"]').click();
+        }
+      } catch (ex) {
+      }
+    };
   });
 });
