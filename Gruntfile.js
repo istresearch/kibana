@@ -52,7 +52,8 @@ module.exports = function (grunt) {
       '<%= plugins %>/visualize/styles/main.less',
       '<%= plugins %>/table_vis/table_vis.less',
       '<%= plugins %>/metric_vis/metric_vis.less',
-      '<%= plugins %>/markdown_vis/markdown_vis.less'
+      '<%= plugins %>/markdown_vis/markdown_vis.less',
+      '<%= plugins %>/frame_vis/frame_vis.less'
     ]
   };
 
