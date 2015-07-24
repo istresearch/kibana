@@ -1,12 +1,12 @@
 define(function (require) {
   var $ = window.jQuery;
   var module = require('modules').get('kibana/frame_vis', ['kibana']);
-  module.controller('KbnFrameVisController', function ($scope, $sce) {
+  module.controller('KbnFrameVisController', function ($scope, $sce, $window, $timeout) {
     $scope.$watch('vis.params.url', function (url) {
       if (!url) return;
       var html = '<iframe data-id="' + $scope.$id + '" height="100%" width="100%" src="' + url + '"></iframe>';
       $scope.html = $sce.trustAsHtml(html);
-      window.setTimeout(function () {
+      $timeout(function () {
         $scope.updateFrame();
       }, 1000);
     });
@@ -27,7 +27,7 @@ define(function (require) {
     $scope.$watch('esResponse', function (resp) {
       $scope.updateFrame();
     });
-    window.onmessage = function (e) {
+    angular.element($window).bind('message', function (e) {
       try {
         var data = JSON.parse(e.data);
         if (data && data.query) {
@@ -35,6 +35,7 @@ define(function (require) {
           $('button[type="submit"]').click();
         }
       } catch (ex) {
+        console.log(ex);
       }
     };
   });
