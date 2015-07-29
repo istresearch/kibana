@@ -37,6 +37,6 @@ define(function (require) {
       } catch (ex) {
         console.log(ex);
       }
-    };
+    });
   });
 });

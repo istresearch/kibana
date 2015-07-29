@@ -12,9 +12,9 @@ define(function (require) {
     // Vis object of this type.
     return new TemplateVisType({
       name: 'frame',
-      title: 'Frame widget',
+      title: 'Webpage Widget',
       icon: 'fa-code',
-      description: 'Useful for displaying explanations or instructions for dashboards.',
+      description: 'Allows you to embed a webpage into a dashboard.',
       template: require('text!plugins/frame_vis/frame_vis.html'),
       params: {
         editor: require('text!plugins/frame_vis/frame_vis_params.html')
