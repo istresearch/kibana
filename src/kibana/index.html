@@ -39,7 +39,9 @@
         require.config({ urlArgs: '_b=' + window.KIBANA_BUILD_NUM });
       }
 
-      require(['kibana'], function (kibana) { kibana.init(); });
+      setTimeout(function(){
+        require(['kibana'], function (kibana) { kibana.init(); });
+      }, 1500);
     </script>
 
   </body>
