@@ -1,43 +1,26 @@
 var _ = require('lodash');
 module.exports = function (grunt) {
-  grunt.registerTask('test', function () {
-    if (grunt.option('quick')) {
-      grunt.task.run('quick-test');
-      return;
-    }
+  grunt.registerTask('test:server', [ 'simplemocha:all' ]);
+  grunt.registerTask('test:browser', [ 'run:testServer', 'karma:unit' ]);
 
-    var tasks = [
-      'licenses',
-      'jshint:source',
-      'jscs:source',
-      'maybe_start_kibana',
-      'jade',
-      'less:build',
-      'simplemocha:all',
-      'mocha:unit'
-    ];
-
-    if (process.env.TRAVIS) tasks.unshift('esvm:dev');
-
-    grunt.task.run(tasks);
-  });
-
-  grunt.registerTask('quick-test', function () {
-    grunt.task.run([
-      'maybe_start_kibana',
-      'simplemocha:all',
-      'mocha:unit'
-    ]);
-  });
-
-  grunt.registerTask('coverage', [
-    'blanket',
-    'maybe_start_kibana',
-    'mocha:coverage'
+  grunt.registerTask('test:quick', [
+    'test:server',
+    'test:browser'
   ]);
 
-  grunt.registerTask('test:watch', [
-    'maybe_start_kibana',
-    'watch:test'
+  grunt.registerTask('test:dev', [
+    'run:devTestServer',
+    'karma:dev'
   ]);
+
+  grunt.registerTask('test', function (subTask) {
+    if (subTask) grunt.fail.fatal(`invalid task "test:${subTask}"`);
+
+    grunt.task.run(_.compact([
+      !grunt.option('quick') && 'eslint:source',
+      'test:quick'
+    ]));
+  });
+
+  grunt.registerTask('quick-test', ['test:quick']); // historical alias
 };

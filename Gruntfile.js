@@ -1,28 +1,36 @@
+require('babel/register')(require('./src/optimize/babelOptions'));
+
 module.exports = function (grunt) {
   // set the config once before calling load-grunt-config
-  // and once durring so that we have access to it via
+  // and once during so that we have access to it via
   // grunt.config.get() within the config files
   var config = {
     pkg: grunt.file.readJSON('package.json'),
     root: __dirname,
-    src: __dirname + '/src', // unbuild version of build
-    build: __dirname + '/build', // copy of source, but optimized
-    app: __dirname + '/src/kibana', // source directory for the app
-    plugins: __dirname + '/src/kibana/plugins', // source directory for the app
-    server: __dirname + '/src/server', // source directory for the server
-    target: __dirname + '/target',  // location of the compressed build targets
-    buildApp: __dirname + '/build/kibana', // build directory for the app
-    configFile: __dirname + '/src/server/config/kibana.yml',
+    src: __dirname + '/src',
+    build: __dirname + '/build', // temporary build directory
+    plugins: __dirname + '/src/plugins',
+    server: __dirname + '/src/server',
+    target: __dirname + '/target', // location of the compressed build targets
+    testUtilsDir: __dirname + '/src/testUtils',
+    configFile: __dirname + '/src/config/kibana.yml',
 
-    nodeVersion: '0.10.35',
-    platforms: ['darwin-x64', 'linux-x64', 'linux-x86', 'windows'],
-    services: [ [ 'launchd', '10.9'], [ 'upstart', '1.5'], [ 'systemd', 'default'], [ 'sysv', 'lsb-3.1' ] ],
+    karmaBrowser: (function () {
+      if (grunt.option('browser')) {
+        return grunt.option('browser');
+      }
 
-    unitTestDir: __dirname + '/test/unit',
-    testUtilsDir: __dirname + '/test/utils',
-    bowerComponentsDir: __dirname + '/src/kibana/bower_components',
+      switch (require('os').platform()) {
+        case 'win32':
+          return 'IE';
+        case 'darwin':
+          return 'Chrome';
+        default:
+          return 'Firefox';
+      }
+    }()),
 
-    devPlugins: 'vis_debug_spy',
+    nodeVersion: '2.5.0',
 
     meta: {
       banner: '/*! <%= package.name %> - v<%= package.version %> - ' +
@@ -31,54 +39,51 @@ module.exports = function (grunt) {
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= package.author.company %>;' +
         ' Licensed <%= package.license %> */\n'
     },
+
     lintThese: [
       'Gruntfile.js',
       '<%= root %>/tasks/**/*.js',
-      '<%= src %>/kibana/*.js',
-      '<%= src %>/server/bin/*.js',
-      '<%= src %>/server/{config,lib,plugins}/**/*.js',
-      '<%= src %>/server/bin/{plugin,startup}/**/*.js',
-      '<%= src %>/kibana/{components,directives,factories,filters,plugins,registry,services,utils}/**/*.js',
-      '<%= unitTestDir %>/**/*.js',
-      '!<%= unitTestDir %>/specs/vislib/fixture/**/*'
+      '<%= src %>/**/*.js',
+      '!<%= src %>/fixtures/**/*.js'
     ],
-    lessFiles: [
-      '<%= src %>/kibana/components/*/*.less',
-      '<%= src %>/kibana/styles/main.less',
-      '<%= src %>/kibana/components/vislib/styles/main.less',
-      '<%= src %>/server/plugins/status/public/styles/main.less',
-      '<%= plugins %>/dashboard/styles/main.less',
-      '<%= plugins %>/discover/styles/main.less',
-      '<%= plugins %>/settings/styles/main.less',
-      '<%= plugins %>/visualize/styles/main.less',
-      '<%= plugins %>/visualize/styles/visualization.less',
-      '<%= plugins %>/visualize/styles/main.less',
-      '<%= plugins %>/table_vis/table_vis.less',
-      '<%= plugins %>/metric_vis/metric_vis.less',
-      '<%= plugins %>/markdown_vis/markdown_vis.less'
-    ]
+
+    deepModules: {
+      'caniuse-db': '1.0.30000265',
+      'chalk': '1.1.0',
+      'glob': '4.5.3',
+      'har-validator': '1.8.0',
+      'json5': '0.4.0',
+      'loader-utils': '0.2.11',
+      'micromatch': '2.2.0',
+      'postcss-normalize-url': '2.1.1',
+      'postcss-reduce-idents': '1.0.2',
+      'postcss-unique-selectors': '1.0.0',
+      'postcss-minify-selectors': '1.4.6',
+      'postcss-single-charset': '0.3.0',
+      'regenerator': '0.8.36'
+    }
   };
 
   grunt.config.merge(config);
 
-  var dirname = require('path').dirname;
-  var indexFiles = grunt.file.expand({ cwd: 'src/kibana/plugins' }, [
-    '*/index.js',
-    '!' + config.devPlugins + '/index.js'
-  ]);
-  var moduleIds = indexFiles.map(function (fileName) {
-    return 'plugins/' + dirname(fileName) + '/index';
-  });
+  config.userScriptsDir = __dirname + '/build/userScripts';
+  // ensure that these run first, other configs need them
+  config.services = require('./tasks/config/services')(grunt);
+  config.platforms = require('./tasks/config/platforms')(grunt);
 
-  config.bundled_plugin_module_ids = grunt.bundled_plugin_module_ids = moduleIds;
+  grunt.config.merge(config);
 
   // load plugins
   require('load-grunt-config')(grunt, {
     configPath: __dirname + '/tasks/config',
     init: true,
-    config: config
+    config: config,
+    loadGruntTasks: {
+      pattern: ['grunt-*', '@*/grunt-*', 'gruntify-*', '@*/gruntify-*']
+    }
   });
 
   // load task definitions
   grunt.task.loadTasks('tasks');
+  grunt.task.loadTasks('tasks/build');
 };

@@ -1,8 +1,15 @@
 module.exports = {
   options: {
-    timeout: 2000,
+    timeout: 10000,
+    slow: 5000,
     ignoreLeaks: false,
     reporter: 'dot'
   },
-  all: { src: ['<%= root %>/test/unit/{server,tasks}/**/*.js'] }
+  all: {
+    src: [
+      'src/**/__tests__/**/*.js',
+      '!src/**/public/**',
+      '!src/ui/**'
+    ]
+  }
 };
