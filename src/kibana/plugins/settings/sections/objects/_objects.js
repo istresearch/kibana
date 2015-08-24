@@ -13,7 +13,7 @@ define(function (require) {
   });
 
   require('modules').get('apps/settings')
-  .directive('kbnSettingsObjects', function (config, Notifier, Private, kbnUrl) {
+  .directive('kbnSettingsObjects', function (config, Notifier, Private, kbnUrl, Promise) {
     return {
       restrict: 'E',
       controller: function ($scope, $injector, $q, AppState, es) {
@@ -41,10 +41,17 @@ define(function (require) {
           $q.all(services).then(function (data) {
             $scope.services = _.sortBy(data, 'title');
             var tab = $scope.services[0];
-            if ($state.tab) tab = _.find($scope.services, {title: $state.tab});
-            $scope.changeTab(tab);
+            if ($state.tab) $scope.currentTab = tab = _.find($scope.services, {title: $state.tab});
+
+            $scope.$watch('state.tab', function (tab) {
+              if (!tab) $scope.changeTab($scope.services[0]);
+            });
           });
         };
+
+        $scope.$watch('state.tab', function (tab) {
+          if (!tab) $scope.changeTab($scope.services[0]);
+        });
 
         $scope.toggleAll = function () {
           if ($scope.selectedItems.length === $scope.currentTab.data.length) {
@@ -77,7 +84,9 @@ define(function (require) {
         };
 
         $scope.bulkDelete = function () {
-          $scope.currentTab.service.delete(_.pluck($scope.selectedItems, 'id')).then(refreshData);
+          $scope.currentTab.service.delete(_.pluck($scope.selectedItems, 'id')).then(refreshData).then(function () {
+            $scope.selectedItems.length = 0;
+          });
         };
 
         $scope.bulkExport = function () {
@@ -120,31 +129,18 @@ define(function (require) {
             notify.error('The file could not be processed.');
           }
 
-          return es.mget({
-            index: config.file.kibana_index,
-            body: {docs: docs.map(_.partialRight(_.pick, '_id', '_type'))}
+          return Promise.map(docs, function (doc) {
+            var service = _.find($scope.services, {type: doc._type}).service;
+            return service.get().then(function (obj) {
+              obj.id = doc._id;
+              return obj.applyESResp(doc).then(function () {
+                return obj.save();
+              });
+            });
           })
-          .then(function (response) {
-            var existingDocs = _.where(response.docs, {found: true});
-            var confirmMessage = 'The following objects will be overwritten:\n\n';
-            if (existingDocs.length === 0 || window.confirm(confirmMessage + _.pluck(existingDocs, '_id').join('\n'))) {
-              return es.bulk({
-                index: config.file.kibana_index,
-                body: _.flatten(docs.map(transformToBulk))
-              })
-              .then(refreshIndex)
-              .then(refreshData, notify.error);
-            }
-          });
+          .then(refreshIndex)
+          .then(refreshData, notify.error);
         };
-
-        // Takes a doc and returns the associated two entries for an index bulk API request
-        function transformToBulk(doc) {
-          return [
-            {index: _.pick(doc, '_id', '_type')},
-            doc._source
-          ];
-        }
 
         function refreshIndex() {
           return es.indices.refresh({
