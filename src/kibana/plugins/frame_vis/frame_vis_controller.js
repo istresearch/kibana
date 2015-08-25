@@ -10,11 +10,6 @@ define(function (require) {
         $scope.updateFrame();
       }, 1000);
     });
-    var $root = $scope;
-    while ($root.$parent) {
-      $root = $root.$parent;
-    }
-    window.$root = $root;
     $scope.updateFrame = function () {
       var frame = $('iframe[data-id="' + $scope.$id + '"]').get(0);
       var query = $('form[name="queryInput"] input[type="text"]').val();
@@ -31,11 +26,11 @@ define(function (require) {
       try {
         var data = JSON.parse(e.originalEvent.data);
         if (data && data.query) {
-          $('form[name="queryInput"] input[type="text"]').val(data.query);
-          $('button[type="submit"]').click();
+            var $dash = angular.element(document.querySelector('form')).scope();
+            $dash.state.query.query_string.query = data.query;
+            $dash.refresh();
         }
       } catch (ex) {
-        console.log(ex);
       }
     });
   });
