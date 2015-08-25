@@ -29,7 +29,7 @@ define(function (require) {
     });
     angular.element($window).bind('message', function (e) {
       try {
-        var data = JSON.parse(e.data);
+        var data = JSON.parse(e.originalEvent.data);
         if (data && data.query) {
           $('form[name="queryInput"] input[type="text"]').val(data.query);
           $('button[type="submit"]').click();
