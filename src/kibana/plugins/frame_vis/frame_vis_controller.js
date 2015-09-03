@@ -10,12 +10,17 @@ define(function (require) {
         $scope.updateFrame();
       }, 1000);
     });
+    var $root = $scope;
+    while ($root.$parent) {
+      $root = $root.$parent;
+    }
+    $scope.$root = $root;
     $scope.updateFrame = function () {
       var frame = $('iframe[data-id="' + $scope.$id + '"]').get(0);
       var query = $('form[name="queryInput"] input[type="text"]').val();
       var filter = {
         'query': query,
-        'time': window.$root.timefilter.time
+        'time': $scope.$root.timefilter.time
       };
       frame.contentWindow.postMessage(JSON.stringify(filter), '*');
     };
