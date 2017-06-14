@@ -15,5 +15,5 @@ Kibana 5.3.0 is going through a major refactor and building the css files isn't 
 7. In another terminal, run  `npm start`.
 8. In a third terminal, run `npm run uiFramework:start` This will start the SASS WATCH compiler.
 9. Wait a few minutes and open up https://localhost:5601 in Chrome.
-10. Locate the following compiled css files in Chrome: commons.style.css and kibana.style.css.
-11. Overrride these compiled css files in https://kibana5.dev.istresearch.com/app/kibana.  I like to use the *Resource Override* plugin for Chrome.
+10. Locate the following compiled css files in the Chrome debugger: commons.style.css and kibana.style.css.
+11. Overrride commons.style.css and kibana.style.css files from https://kibana5.dev.istresearch.com/app/kibana to the localhost versions.  I like to use the *Resource Override* plugin for Chrome.
