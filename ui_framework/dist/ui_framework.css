@@ -310,7 +310,6 @@ body {
   /* 2 */
   font-size: 10px !important;
   /* 2 */
-  -webkit-transition: background-color 0.1s linear;
   transition: background-color 0.1s linear; }
   .kuiCheckBox:before {
     position: relative;
@@ -320,7 +319,6 @@ body {
     font-size: 1em;
     opacity: 0;
     color: #ffffff;
-    -webkit-transition: opacity 0.1s linear;
     transition: opacity 0.1s linear; }
   .kuiCheckBox:checked {
     border-color: #328CAA;
@@ -354,7 +352,6 @@ body {
   background-color: #ffffff;
   border: 1px solid #DEDEDE;
   border-radius: 4px;
-  -webkit-transition: border-color 0.1s linear;
   transition: border-color 0.1s linear;
   /**
    * 1. Angular will add an ng-untouched class to an input if it hasn't been touched yet.
@@ -406,7 +403,6 @@ body {
   background-color: #ffffff;
   border: 1px solid #DEDEDE;
   border-radius: 4px;
-  -webkit-transition: border-color 0.1s linear;
   transition: border-color 0.1s linear;
   /**
    * 1. Angular will add an ng-untouched class to an input if it hasn't been touched yet.
@@ -438,7 +434,6 @@ body {
   background-color: #ffffff;
   border: 1px solid #DEDEDE;
   border-radius: 4px;
-  -webkit-transition: border-color 0.1s linear;
   transition: border-color 0.1s linear;
   /**
    * 1. Angular will add an ng-untouched class to an input if it hasn't been touched yet.
@@ -663,12 +658,12 @@ body {
         -ms-user-select: none;
             user-select: none;
     margin-right: 4px;
-    color: #5a5a5a; }
+    color: #a5a5a5; }
     .theme-dark .kuiLocalBreadcrumb + .kuiLocalBreadcrumb:before {
       color: #a5a5a5; }
 
 .kuiLocalBreadcrumb:last-child .kuiLocalBreadcrumb__link {
-  color: #2d2d2d;
+  color: #cecece;
   cursor: default; }
   .kuiLocalBreadcrumb:last-child .kuiLocalBreadcrumb__link:hover {
     text-decoration: none; }
@@ -677,7 +672,7 @@ body {
 
 .kuiLocalBreadcrumb__link {
   font-size: 14px;
-  color: #5a5a5a;
+  color: #dedede;
   text-decoration: none; }
   .kuiLocalBreadcrumb__link:hover {
     text-decoration: underline; }
@@ -690,7 +685,7 @@ body {
 .kuiLocalDropdown {
   position: relative;
   padding: 10px 10px 14px;
-  background-color: #f6f6f6;
+  background-color: #525252;
   line-height: 20px; }
   .theme-dark .kuiLocalDropdown {
     background-color: #525252; }
@@ -706,7 +701,7 @@ body {
   top: 1px;
   right: 5px;
   font-size: 16px;
-  color: #2d2d2d;
+  color: #cecece;
   cursor: pointer;
   opacity: 0.35; }
   .kuiLocalDropdownCloseButton:hover {
@@ -735,7 +730,7 @@ body {
 .kuiLocalDropdownTitle {
   margin-bottom: 12px;
   font-size: 18px;
-  color: #2d2d2d; }
+  color: localNavTextColor--darkTheme; }
   .theme-dark .kuiLocalDropdownTitle {
     color: #cecece; }
 
@@ -762,7 +757,7 @@ body {
 .kuiLocalDropdownHeader__label {
   font-size: 14px;
   font-weight: 700;
-  color: #2d2d2d; }
+  color: localNavTextColor--darkTheme; }
   .theme-dark .kuiLocalDropdownHeader__label {
     color: #cecece; }
 
@@ -773,14 +768,14 @@ body {
   display: flex; }
 
 .kuiLocalDropdownHeader__action {
-  color: #3CAED2;
+  color: #b7e2ea;
   font-size: 12px;
   text-decoration: none;
   cursor: pointer; }
   .kuiLocalDropdownHeader__action + .kuiLocalDropdownHeader__action {
     margin-left: 10px; }
   .kuiLocalDropdownHeader__action:hover, .kuiLocalDropdownHeader__action:active {
-    color: #105A73; }
+    color: #def2f6; }
   .theme-dark .kuiLocalDropdownHeader__action {
     color: #b7e2ea; }
     .theme-dark .kuiLocalDropdownHeader__action:hover, .theme-dark .kuiLocalDropdownHeader__action:active {
@@ -792,9 +787,9 @@ body {
   margin-bottom: 12px;
   padding: 5px 15px;
   font-size: 14px;
-  color: #2d2d2d;
-  background-color: #ffffff;
-  border: 2px solid #ffffff;
+  color: #cecece;
+  background-color: #444444;
+  border: 2px solid #444444;
   border-radius: 4px; }
   .theme-dark .kuiLocalDropdownInput {
     color: #cecece;
@@ -803,7 +798,7 @@ body {
 
 .kuiLocalDropdownFormNote {
   font-size: 14px;
-  color: #737373; }
+  color: #a2a2a2; }
   .theme-dark .kuiLocalDropdownFormNote {
     color: #a2a2a2; }
 
@@ -811,8 +806,8 @@ body {
   margin-bottom: 16px;
   padding: 6px 10px;
   font-size: 14px;
-  color: #2d2d2d;
-  background-color: #e4e4e4; }
+  color: #cecece;
+  background-color: #636363; }
   .theme-dark .kuiLocalDropdownWarning {
     color: #cecece;
     background-color: #636363; }
@@ -820,7 +815,7 @@ body {
 .kuiLocalDropdownHelpText {
   margin-bottom: 16px;
   font-size: 14px;
-  color: #2D2D2D; }
+  color: #9e9e9e; }
   .theme-dark .kuiLocalDropdownHelpText {
     color: #9e9e9e; }
 
@@ -847,21 +842,21 @@ body {
   height: 100%;
   padding: 0 10px;
   font-size: 14px;
-  background-color: transparent;
-  color: #5a5a5a;
+  background-color: #333333;
+  color: #dedede;
   border: 0;
   cursor: pointer; }
   .kuiLocalMenuItem:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #000000; }
+    background-color: #000000;
+    color: #ffffff; }
   .kuiLocalMenuItem.kuiLocalMenuItem-isSelected {
-    background-color: #f6f6f6; }
+    background-color: #525252; }
   .kuiLocalMenuItem.kuiLocalMenuItem-isDisabled {
     opacity: 0.5;
     cursor: default; }
     .kuiLocalMenuItem.kuiLocalMenuItem-isDisabled:hover {
       background-color: transparent;
-      color: #5a5a5a; }
+      color: #dedede; }
   .theme-dark .kuiLocalMenuItem {
     color: #dedede; }
     .theme-dark .kuiLocalMenuItem:hover {
@@ -897,8 +892,8 @@ body {
           justify-content: space-between;
   min-height: 70px;
   /* 1 */
-  color: #2d2d2d;
-  background-color: #e4e4e4; }
+  color: #cecece;
+  background-color: #333333; }
   .theme-dark .kuiLocalNav {
     color: #cecece;
     background-color: #333333; }
@@ -940,15 +935,15 @@ body {
           flex: 1 1 100%;
   padding: 5px 15px;
   font-size: 14px;
-  color: #2d2d2d;
-  background-color: #ffffff;
-  border: 2px solid #ffffff;
+  color: localNavTextColor--darkTheme;
+  background-color: #4e4e4e;
+  border: 2px solid #4e4e4e;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0; }
   .kuiLocalSearchInput.kuiLocalSearchInput-isInvalid {
-    border-color: #e74C3c; }
+    border-color: #ff6758; }
   .theme-dark .kuiLocalSearchInput {
     color: #cecece;
     background-color: #4e4e4e;
@@ -961,7 +956,7 @@ body {
   height: 30px;
   font-size: 14px;
   color: #ffffff;
-  background-color: #9c9c9c;
+  background-color: #777777;
   border: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -993,17 +988,17 @@ body {
   font-size: 18px;
   line-height: 22px;
   /* 1 */
-  color: #5a5a5a;
+  color: #dedede;
   border-bottom: 2px solid transparent;
   text-decoration: none;
   cursor: pointer; }
   .kuiLocalTab:hover, .kuiLocalTab:active {
-    color: #000000; }
+    color: #ffffff; }
     .theme-dark .kuiLocalTab:hover, .theme-dark .kuiLocalTab:active {
       color: #ffffff; }
   .kuiLocalTab.kuiLocalTab-isSelected {
-    color: #000000;
-    border-bottom-color: #000000;
+    color: #ffffff;
+    border-bottom-color: #ffffff;
     cursor: default; }
     .theme-dark .kuiLocalTab.kuiLocalTab-isSelected {
       color: #ffffff;
@@ -1724,7 +1719,6 @@ body {
   border: 1px solid #ffffff;
   line-height: normal;
   /* 1 */
-  -webkit-transition: border-color 0.1s linear;
   transition: border-color 0.1s linear; }
   .kuiToolBarSearchBox__input:focus {
     outline: none;
