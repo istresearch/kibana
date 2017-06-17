@@ -2,6 +2,7 @@
 @import (reference) "./mixins";
 @import (reference) "./variables";
 @import (reference) "~ui/styles/bootstrap/bootstrap";
+@import (reference) "~ui/styles/dark-variables.less";
 
 html,
 body {
@@ -302,13 +303,13 @@ paginated-selectable-list {
 
     input {
       border: none;
-      padding: 5px 0px;
+//      padding: 5px 0px;
       border-radius: @border-radius-base;
     }
 
     span {
       padding: 5px 0px;
-      background-color: @white;
+      background-color: #777777;
       border: none;
 
       i {
@@ -324,16 +325,16 @@ paginated-selectable-list {
     }
 
     li:nth-child(odd) {
-      background-color: @kibanaGray6;
+      background-color: @gray3;
     }
 
     li:nth-child(even) {
-      background-color: @white;
+      background-color: @gray4;
     }
 
     .paginate-heading {
       font-weight: normal;
-      color: @kibanaGray1;
+      color: @text-color;
     }
 
     .list-group-item {
