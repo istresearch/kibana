@@ -29,7 +29,7 @@ $tableCellPadding: 7px 8px 8px;
   @include tableCell;
   padding: $tableCellPadding;
   line-height: $lineHeight;
-  color: #b4bcc2;
+  color: #cecece;
   border-bottom: $tableBorder;
 }
 
@@ -69,7 +69,7 @@ $tableCellPadding: 7px 8px 8px;
 
 .kuiTableRowCell {
   @include tableCell;
-  color: #b4bcc2;
+  color: #cecece;
   border-top: $tableRowBorder;
 }
 

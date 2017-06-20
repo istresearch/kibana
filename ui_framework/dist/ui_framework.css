@@ -620,8 +620,6 @@ body {
 .kuiLink {
   color: #b4bcc2;
   text-decoration: none; }
-  .kuiLink:visited, .kuiLink:active {
-    color: #d11010; }
   .kuiLink:hover {
     color: #ffffff;
     text-decoration: underline; }
@@ -1377,7 +1375,7 @@ body {
   /* 1 */
   padding: 7px 8px 8px;
   line-height: 1.5;
-  color: #b4bcc2;
+  color: #cecece;
   border-bottom: 2px solid #5c5c5c; }
   .kuiTableHeaderCell:last-child {
     padding-right: 16px; }
@@ -1413,7 +1411,7 @@ body {
   text-align: left;
   max-width: 20px;
   /* 1 */
-  color: #b4bcc2;
+  color: #cecece;
   border-top: 1px solid #5c5c5c; }
   .kuiTableRowCell:last-child {
     padding-right: 16px; }
@@ -1712,7 +1710,7 @@ body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   /* 1 */
   background-color: #444444;
-  color: #191E23;
+  color: #cecece;
   border-radius: 4px;
   font-size: 1em;
   border: 1px solid #444444;
@@ -1741,7 +1739,7 @@ body {
   /* 1 */
   font-weight: 400;
   /* 1 */
-  color: #191E23;
+  color: #cecece;
   font-size: 22px; }
 
 /**
