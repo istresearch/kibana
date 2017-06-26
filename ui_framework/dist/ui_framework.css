@@ -1766,4 +1766,5 @@ body {
   font-size: 14px; }
 
 .kuiVerticalRhythm + .kuiVerticalRhythm {
-  margin-top: 10px; }
+  margin-top: 10px;
+  background-color: #272727; }
